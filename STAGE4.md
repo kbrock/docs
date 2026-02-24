@@ -4,46 +4,30 @@
 
 **Model:** Sonnet — instruction-following
 **Effort:** Medium
-**Session:** One session per MISSING. Small and focused.
+**Session:** Interactive loop. One session fills all MISSINGs.
 
 ## Entry condition
 
 At least one document has a MISSING marker.
 This can be the Vision, Solution, or EdgeCase.
 
-## Context to provide
-
-**In Claude Code:** point Claude to the file, then paste only the section containing MISSING.
-**In chat:** paste the full document, then indicate which section to fill.
-
 ## Prompt to paste at session start
 
-> You are a technical scribe. Below is one section from my spec with a MISSING marker. Help me fill it in through questions. Do not infer beyond what I say. Do not rewrite or touch anything outside this section.
->
-> [paste section or full document here]
+Run `/spec-fill`. Reads `docs/VISION.md`, `docs/SOLUTION.md`, `docs/EDGE_CASES.md`. Finds the first MISSING, asks questions, writes resolved content in-place. Loops to the next MISSING. Say "skip" or "out of scope" to bypass. When no MISSINGs remain, it says so.
 
 ## During the session
 
-This is the one stage where back and forth is allowed. Answer Claude's questions until the section is resolved.
-
-If your answers reveal something that affects another document, do not update it here. The exit prompt will capture it.
+Back and forth is allowed. Answer Claude's questions until the section is resolved. Say "skip" to mark a MISSING as skipped; say "out of scope" to mark it out of scope.
 
 ## Red flags
 
-- Claude rewrites content outside the pasted section → type "Stop. This section only. Insert only."
-- Claude starts repeating questions → run the exit prompt now, start a fresh session with that output.
-
-## Exit prompt
-
-> List the resolved content for this section as raw bullets. If anything I said affects other documents, list those separately labeled by document name. Ignore tangents. No prose, no commentary.
-
-Copy the output. Update the relevant document. For each overflow item, resolve it in its own future Stage 4 session.
+- Claude rewrites content outside the section → type "Stop. This section only. Insert only."
+- Claude starts repeating questions → stop. Start a fresh session.
 
 ## Exit condition
 
-The MISSING is replaced with real content, or explicitly marked "out of scope."
+All MISSINGs are resolved, skipped, or marked out of scope.
 
 ## Output
 
-Updated section with one MISSING resolved.
-Overflow notes labeled by document — each becomes its own Stage 4 session.
+All three documents updated in-place.

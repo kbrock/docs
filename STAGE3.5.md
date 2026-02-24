@@ -10,23 +10,9 @@
 
 You have at least Document 1 (VISION.md). Run this after Stage 3, and again any time documents have changed significantly.
 
-## Context to provide
-
-Paste all documents you want checked. State which is most recent.
-
 ## Prompt to paste at session start
 
-> You are a technical reviewer. Check the documents below for:
-> - Logical contradictions between sections or documents
-> - Gaps in the user flow (missing steps, unhandled states)
-> - Actors mentioned but not defined, or defined but never used
-> - Anything in SOLUTION.md that contradicts VISION.md
-> - Anything in the code that contradicts or is absent from the spec
-> - Sections that are vague enough to be misunderstood
->
-> Output only a list of problems. No fixes, no suggestions, no encouragement.
->
-> [paste documents]
+Run `/spec-audit`. Reads `docs/VISION.md`, `docs/SOLUTION.md`, `docs/EDGE_CASES.md`. Outputs problem list to screen.
 
 ## During the session
 
@@ -39,16 +25,10 @@ Do not fix anything in this session.
 - Claude starts rewriting documents → type "Problems only. No fixes."
 - Claude finds nothing → paste one document at a time and re-run.
 
-## Exit prompt
-
-> List every problem as raw bullets. Label each by document and section. No prose.
-
-Route each problem to the appropriate stage: Stage 4 (MISSING), Stage 5 (SOLUTION update), Stage 6 (component split), or Stage 0 (idea changed).
-
 ## Exit condition
 
 Every problem is labeled and routed. No unrouted items.
 
 ## Output
 
-Problem list with each item routed to a stage.
+Problem list to screen with each item routed to a stage.

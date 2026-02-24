@@ -10,20 +10,7 @@ You've identified 3+ related edge cases in Document 3 that cluster around the sa
 
 ## Starting prompt
 
-Paste the related edge cases, then:
-
-```
-You are a technical scribe. Below are related edge cases from my spec. They cluster around a single component. Draft a component spec with:
-- What the component does (one sentence)
-- Actors involved
-- How it interacts with the rest of the system (2-4 sentences)
-- The edge cases it must handle (from the list below)
-
-Do not infer beyond what I say. Do not guess.
-
----
-[paste the 3+ related edge cases from EDGE_CASES.md]
-```
+Run `/spec-split`. Reads `docs/SOLUTION.md`. Optionally pass a component name as argument. Interactive split into two components. When agreed, writes updated sections to `docs/SOLUTION.md`.
 
 ## During the session
 

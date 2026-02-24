@@ -1,6 +1,7 @@
 # Stage 0B — Brainstorm with Claude
 
-**Command:** `/spec-brainstorm`
+**Command:** `/spec-dump-interactive`
+**Exit command:** `/spec-dump-done`
 
 Use when you don't have a friend available or want to pressure-test before talking to a person.
 
@@ -13,7 +14,9 @@ You have a rough idea but can't yet state the logline clearly.
 
 ## Prompt
 
-> I want to brainstorm an idea. Ask me one question at a time. Do not summarize, do not organize, do not encourage. Just ask the next most useful question. I will say DONE when I'm finished.
+Run `/spec-dump-interactive` or paste manually:
+
+> I want to brainstorm an idea. Ask me one question at a time. Do not summarize, do not organize, do not encourage. Just ask the next most useful question.
 
 ## What to expect
 
@@ -21,11 +24,13 @@ Claude surfaces gaps and contradictions by questioning, not by building structur
 
 ## Exit prompt
 
+Run `/spec-dump-done` (writes to `docs/brainstorm.md`) or `/spec-dump-done docs/other.md` to override. Or paste manually:
+
 > Bullet list everything we just discovered. No prose. No encouragement.
 
 ## Output
 
-Raw bullet list you carry into Stage 1. Not a doc — just captured thinking.
+Raw bullet list written to `docs/brainstorm.md`.
 
 ## Exit condition
 

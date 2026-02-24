@@ -1,6 +1,7 @@
 # Stage 1 — Brain Dump
 
 **Command:** `/spec-dump`
+**Exit command:** `/spec-dump-done`
 
 **Model:** Sonnet — instruction-following
 **Effort:** Low
@@ -12,26 +13,24 @@ You passed Stage 0. You can state the logline out loud.
 
 ## Prompt to paste at session start
 
-> You are a technical scribe. Acknowledge each message with only "got it." Do not ask questions, do not organize, do not summarize. I will say DONE when I am finished.
+Run `/spec-dump` or paste manually:
+
+> You are a technical scribe. Acknowledge each message with only "got it." Do not ask questions, do not organize, do not summarize.
 
 ## During the session
 
 Say everything in your head about the project. One blob or many messages — your choice. Claude responds only with "got it."
 
-When your head is empty, type DONE.
-
 ## Red flags
 
-- Claude asks a question → type "Stenographer only. Got it responses only until I say DONE." then continue.
+- Claude asks a question → type "Stenographer only. Got it responses only." then continue.
 - You feel the urge to ask Claude to organize while dumping → don't. That is Stage 2.
 
 ## Exit prompt
 
-> List everything I told you as raw bullets. Group by: Vision, Solution, Edge Cases. No prose, no commentary.
-
-Copy output. Paste into docs/state.md. Close session.
+Run `/spec-dump-done`. Writes to `docs/brainstorm.md`. Override with `/spec-dump-done docs/other.md`.
 
 ## Output
 
-Raw state document — bullet list grouped by Vision, Solution, Edge Cases.
+Raw bullet list written to `docs/brainstorm.md`, grouped by Vision, Solution, Edge Cases.
 Document being built: Vision (VISION.md).
