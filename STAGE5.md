@@ -1,5 +1,7 @@
 # Stage 5 — Solution Evolves
 
+**Command:** `/spec-define`
+
 **Model:** Sonnet — instruction-following
 **Effort:** Medium
 **Session:** One session per update. Document 2 only.

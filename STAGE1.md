@@ -1,5 +1,7 @@
 # Stage 1 — Brain Dump
 
+**Command:** `/spec-dump`
+
 **Model:** Sonnet — instruction-following
 **Effort:** Low
 **Session:** New session inside Spec Writing project. One session. One purpose.

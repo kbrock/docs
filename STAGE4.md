@@ -1,5 +1,7 @@
 # Stage 4 — Fill the MISSINGs
 
+**Command:** `/spec-fill`
+
 **Model:** Sonnet — instruction-following
 **Effort:** Medium
 **Session:** One session per MISSING. Small and focused.

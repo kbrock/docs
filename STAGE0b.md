@@ -1,5 +1,7 @@
 # Stage 0B — Brainstorm with Claude
 
+**Command:** `/spec-brainstorm`
+
 Use when you don't have a friend available or want to pressure-test before talking to a person.
 
 **Model:** Sonnet — instruction-following

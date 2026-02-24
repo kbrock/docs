@@ -1,5 +1,7 @@
 # Stage 3.5 — Validate & Find Holes
 
+**Command:** `/spec-audit`
+
 **Model:** Opus — reasoning
 **Effort:** High
 **Session:** New session. One document at a time or all three together.
@@ -19,6 +21,7 @@ Paste all documents you want checked. State which is most recent.
 > - Gaps in the user flow (missing steps, unhandled states)
 > - Actors mentioned but not defined, or defined but never used
 > - Anything in SOLUTION.md that contradicts VISION.md
+> - Anything in the code that contradicts or is absent from the spec
 > - Sections that are vague enough to be misunderstood
 >
 > Output only a list of problems. No fixes, no suggestions, no encouragement.

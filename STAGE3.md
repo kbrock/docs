@@ -1,5 +1,7 @@
 # Stage 3 — Write the Docs
 
+**Command:** `/spec-write`
+
 **Model:** Sonnet — instruction-following
 **Effort:** Medium
 **Session:** New session. Paste docs/state.md. One purpose: produce three documents.

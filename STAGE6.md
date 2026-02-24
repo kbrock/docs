@@ -1,5 +1,7 @@
 # Stage 6 — Split Components from Document 3
 
+**Command:** `/spec-split`
+
 When an edge case in Document 3 has 3+ related cases, it's a component that needs its own scope. New session: paste those cases, ask Claude to draft a component spec. That component spec lives in Document 2 as a subsection.
 
 ## Entry condition

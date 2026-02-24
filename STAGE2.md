@@ -1,5 +1,7 @@
 # Stage 2 — Gap Audit
 
+**Command:** `/spec-gap`
+
 **Model:** Sonnet — instruction-following  
 **Effort:** Medium  
 **Session:** New session. Paste docs/state.md. One purpose: find what is missing.
