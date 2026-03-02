@@ -13,19 +13,23 @@ Phase 3 — Write three documents
 Document 1: Vision (this document should not need to change once written)
 
 # Logline
-One sentence. What it does.
+Helps [persona] do X by doing Y.
 
 # Problem / Solution
 - The problem
-- The non-obvious insight that makes this approach work
 - Why existing solutions miss this
 - The outcome difference for the user
 
-# How It Works
-- The core user goal
-- Primary user flow (numbered steps)
-- Actors: who/what participates (AI, agents, reviewers, etc.)
-- Secondary goals
+# Personas
+- Who uses this, in what context, and what they are trying to accomplish
+
+# User Flow
+- Numbered steps of the primary interaction
+
+# System Actors
+- What non-human participants do (AI, agents, validators, etc.)
+
+# Out of Scope
 - What this does NOT do
 
 Document 2: Solution (expected to evolve)

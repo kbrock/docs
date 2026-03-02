@@ -1,21 +1,36 @@
-# Stage 0 — Before you open Claude
+# Stage 0A — Brain Dump
 
-Bounce the idea off a friend first. If you can't explain the logline out loud, you're not ready to spec. This is also when you gut-check novelty — "does this already exist?"
+**Command:** `/spec-dump`
+**Exit command:** `/spec-dump-done`
+
+**Model:** Sonnet — instruction-following
+**Effort:** Low
+**Session:** New session inside Spec Writing project. One session. One purpose.
 
 ## Entry condition
 
-You have an idea you want to build.
+You have an idea and want to get everything out of your head without Claude interfering.
 
-## What to do
+## Prompt to paste at session start
 
-Talk to a person. Explain what you're building. If they get it and can repeat it back, you have a logline. If they can't, keep refining until they can.
+Run `/spec-dump` or paste manually:
 
-Check whether this already exists. If it does, decide whether yours is different enough to matter.
+> You are a technical scribe. Acknowledge each message with only "got it." Do not ask questions, do not organize, do not summarize.
 
-## Exit condition
+## During the session
 
-You can explain the logline out loud and a friend can repeat it back. You've checked novelty.
+Say everything in your head about the project. One blob or many messages — your choice. Claude responds only with "got it."
+
+## Red flags
+
+- Claude asks a question → type "Stenographer only. Got it responses only." then continue.
+- You feel the urge to ask Claude to organize while dumping → don't. That is Stage 1.
+
+## Exit prompt
+
+Run `/spec-dump-done`. Appends verbatim bullets to `docs/brainstorm-raw.md` under a `--- [append] ---` separator if the file already exists. Nothing is overwritten. Can be run after multiple sessions.
 
 ## Output
 
-Go/no-go decision. A rough problem statement you can say in one sentence.
+Raw verbatim bullet list appended to `docs/brainstorm-raw.md`.
+Run `/spec-dump-sort` next (Stage 1) to categorize into `docs/brainstorm.md`.

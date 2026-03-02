@@ -10,17 +10,7 @@ Store the prompt from PROMPT.md in your Claude Project Instructions so it auto-l
 
 ## Stages
 
-### Stage 0 — Before you open Claude
-
-Bounce the idea off a friend first. If you can't explain the logline out loud, you're not ready to spec. This is also when you gut-check novelty — "does this already exist?"
-
-If no friend is available, use Stage 0B: run `/spec-dump-interactive`. Exit with `/spec-dump-done`.
-
-> `/spec-dump-interactive`: I want to brainstorm an idea. Ask me one question at a time. Do not summarize, do not organize, do not encourage. Just ask the next most useful question. If I go off-topic or add detail beyond what the current question needs, acknowledge it with "noted" and bring me back with the next question. Do not follow tangents.
->
-> `/spec-dump-done`: Bullet list everything we just discovered. No prose. No encouragement. Write output to docs/brainstorm.md.
-
-### Stage 1 — Brain Dump (new session inside Spec Writing project)
+### Stage 0A — Brain Dump (new session inside Spec Writing project)
 
 Run `/spec-dump`. Exit with `/spec-dump-done` (appends raw verbatim bullets to `docs/brainstorm-raw.md`).
 Can be run multiple times — each run appends under a `--- [append] ---` separator. Nothing is lost.
@@ -30,9 +20,17 @@ Capture only. One session.
 >
 > `/spec-dump-done`: Bullet list everything we just discovered. No prose. No encouragement. No deduplication. No summarizing — preserve every detail verbatim. Appends to docs/brainstorm-raw.md.
 
-### Stage 1.5 — Sort (new session)
+### Stage 0B — Brainstorm with Claude (new session)
 
-Run `/spec-dump-sort` after one or more brain dumps. Categorizes `brainstorm-raw.md` into `brainstorm.md` under the checklist headings. No content is lost — everything lands somewhere, even if only in Unclassified.
+Use when you want Claude to interview you rather than just receive your dump. Run `/spec-dump-interactive`. Exit with `/spec-dump-done` (appends bullets to `docs/brainstorm-raw.md`).
+
+> `/spec-dump-interactive`: I want to brainstorm an idea. Ask me one question at a time. Do not summarize, do not organize, do not encourage. Just ask the next most useful question. If I go off-topic or add detail beyond what the current question needs, acknowledge it with "noted" and bring me back with the next question. Do not follow tangents.
+>
+> `/spec-dump-done`: Bullet list everything we just discovered. No prose. No encouragement. No deduplication. No summarizing — preserve every detail verbatim. Appends to docs/brainstorm-raw.md.
+
+### Stage 1 — Sort (new session)
+
+Run `/spec-dump-sort` after one or more Stage 0A or 0B sessions. Categorizes `brainstorm-raw.md` into `brainstorm.md` under the checklist headings. No content is lost — everything lands somewhere, even if only in Unclassified.
 
 Run again any time you add more raw content. If `brainstorm.md` already exists, shows a diff of new content and waits for confirmation before merging.
 
@@ -65,19 +63,23 @@ Output: `docs/VISION.md`, `docs/SOLUTION.md`, `docs/EDGE_CASES.md`.
 #### VISION.md: Vision (stable — should not change after this session)
 ```
 # Logline
-One sentence. What it does.
+Helps [persona] do X by doing Y.
 
 # Problem / Solution
 - The problem
-- The non-obvious insight that makes this approach work
 - Why existing solutions miss this
 - The outcome difference for the user
->
-# How It Works
-- The core user goal
-- Primary user flow (numbered steps)
-- Actors: who/what participates (AI, agents, reviewers, etc.)
-- Secondary goals
+
+# Personas
+- Who uses this, in what context, and what they are trying to accomplish
+
+# User Flow
+- Numbered steps of the primary interaction
+
+# System Actors
+- What non-human participants do (AI, agents, validators, etc.)
+
+# Out of Scope
 - What this does NOT do
 ```
 
@@ -150,6 +152,8 @@ Run `/spec-split` (optionally pass a component name). Interactive — reads `doc
 When an edge case in Document 3 has 3+ related cases, it's a component that needs its own scope.
 That component spec lives in Document 2 as a subsection.
 
+> `/spec-split`: You are a technical scribe. Read docs/SOLUTION.md. If $ARGUMENTS is provided, focus on that component. Identify related edge cases that cluster around a single component and draft a split into two components with: what each component does (one sentence each), actors involved, how each interacts with the rest of the system (2-4 sentences), the edge cases each must handle. Do not infer beyond what I say. Do not guess. When we have agreed on the split, write the updated component sections to docs/SOLUTION.md.
+
 ### Stage 7 — Component is Mis-scoped
 
 Signs: Claude keeps asking the same question about it, or the component touches too many actors.
@@ -172,11 +176,32 @@ Document 1 is context, not instructions.
 - You're filling a MISSING and Claude is rewriting other sections unprompted
 - The session is over 10 exchanges and you're still clarifying
 
-## Project structure (created in Stage 3)
+## Project setup (do this before Stage 1)
+
+```bash
+mkdir -p my-project/docs
+cd my-project
+git init
+```
+
+Create `CLAUDE.md` at the repo root:
+```
+Read docs/PROCESS.md at the start of each session to understand the spec-writing stages.
+```
+
+Copy or symlink README as `docs/PROCESS.md` so Claude Code sessions have stage context.
+
+Also paste README into your Claude Project Instructions for web sessions.
+
+## Project structure (files created in Stage 3)
 
 ```
 my-project/
+  CLAUDE.md
   docs/
+    PROCESS.md       — copy of this README (context for Claude)
+    brainstorm-raw.md — verbatim dump output (append-only, never edited)
+    brainstorm.md    — categorized, created in Stage 1.5
     VISION.md        — Document 1 (stable once written)
     SOLUTION.md      — Document 2 (evolves)
     EDGE_CASES.md    — Document 3 (test backlog. move into executable tests when possible.)
@@ -207,6 +232,16 @@ Stop. Do not re-explain.
 > Summarize every decision we made as raw bullets. No prose.
 
 Copy output. Start a new session. Paste as input.
+
+### Too much detail in SOLUTION.md
+
+Signs: you've been answering questions for more than an hour, decisions feel implementation-level, or you don't know the answer yet because you haven't built it.
+
+Stop the current session.
+
+> We're in the weeds. Read docs/SOLUTION.md. For each decision, classify it: does changing it affect the interface between components? If yes, keep it. If no, move it to EDGE_CASES.md with Status: defer to Stage 6. List what you would move before changing anything. Do not write yet.
+
+Review the list. Confirm, then tell Claude to write.
 
 ### Claude rewrites instead of inserts
 Type: "Insert only. Do not restructure, rename, or rewrite anything not explicitly changed."

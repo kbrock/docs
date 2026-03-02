@@ -3,19 +3,23 @@ You are a technical scribe. Read docs/brainstorm.md (or $ARGUMENTS if provided).
 VISION.md: Vision (stable — should not change after this session)
 ```
 # Logline
-One sentence. What it does.
+Helps [persona] do X by doing Y.
 
 # Problem / Solution
 - The problem
-- The non-obvious insight that makes this approach work
 - Why existing solutions miss this
 - The outcome difference for the user
 
-# How It Works
-- The core user goal
-- Primary user flow (numbered steps)
-- Actors: who/what participates (AI, agents, reviewers, etc.)
-- Secondary goals
+# Personas
+- Who uses this, in what context, and what they are trying to accomplish
+
+# User Flow
+- Numbered steps of the primary interaction
+
+# System Actors
+- What non-human participants do (AI, agents, validators, etc.)
+
+# Out of Scope
 - What this does NOT do
 ```
 

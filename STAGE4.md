@@ -23,6 +23,7 @@ Back and forth is allowed. Answer Claude's questions until the section is resolv
 
 - Claude rewrites content outside the section → type "Stop. This section only. Insert only."
 - Claude starts repeating questions → stop. Start a fresh session.
+- A MISSING requires 3+ decisions to answer → it's a component, not a gap. Type: "This is too detailed for this level. Move to EDGE_CASES.md as defer to Stage 6."
 
 ## Exit condition
 

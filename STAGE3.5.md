@@ -14,6 +14,19 @@ You have at least Document 1 (VISION.md). Run this after Stage 3, and again any 
 
 Run `/spec-audit`. Reads `docs/VISION.md`, `docs/SOLUTION.md`, `docs/EDGE_CASES.md`. Outputs problem list to screen.
 
+## Completeness checklist (verified by spec-audit)
+
+The three documents together must cover all of the following. Absent or too-vague items are flagged as problems:
+- Context and goals (plain English, no jargon)
+- System architecture or data flow (diagram or equivalent description)
+- CRUD operations: what inputs come in, what outputs go out
+- Data formatting: acceptable values, expected ranges
+- Business rules: given inputs, what outputs are expected
+- Specialized logic
+- Error messaging
+- Non-functional requirements: response times, capacity, uptime, resiliency, versioning, environment details
+- What is explicitly out of scope
+
 ## During the session
 
 Read the problem list. For each item decide: fix now or add to EDGE_CASES.md as unresolved.

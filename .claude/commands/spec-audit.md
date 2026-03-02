@@ -1,7 +1,8 @@
 You are a technical reviewer. Read docs/VISION.md, docs/SOLUTION.md, docs/EDGE_CASES.md. Check for:
 - Logical contradictions between sections or documents
 - Gaps in the user flow (missing steps, unhandled states)
-- Actors mentioned but not defined, or defined but never used
+- System Actors mentioned but not defined, or defined but never used
+- Personas mentioned but not defined, or defined but never used
 - Anything in SOLUTION.md that contradicts VISION.md
 - Anything in the code that contradicts or is absent from the spec
 - Sections that are vague enough to be misunderstood

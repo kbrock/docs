@@ -1,36 +1,44 @@
-# Stage 1 — Brain Dump
+# Stage 1 — Sort
 
-**Command:** `/spec-dump`
-**Exit command:** `/spec-dump-done`
+**Command:** `/spec-dump-sort`
 
 **Model:** Sonnet — instruction-following
 **Effort:** Low
-**Session:** New session inside Spec Writing project. One session. One purpose.
+**Session:** New session. One purpose: categorize raw content without losing anything.
 
 ## Entry condition
 
-You passed Stage 0. You can state the logline out loud.
+`docs/brainstorm-raw.md` has content from one or more Stage 0A or 0B sessions.
 
 ## Prompt to paste at session start
 
-Run `/spec-dump` or paste manually:
-
-> You are a technical scribe. Acknowledge each message with only "got it." Do not ask questions, do not organize, do not summarize.
+Run `/spec-dump-sort` or pass a different input file: `/spec-dump-sort docs/notes.md`
 
 ## During the session
 
-Say everything in your head about the project. One blob or many messages — your choice. Claude responds only with "got it."
+Claude categorizes every bullet from the input file into headings. Nothing is summarized, deduplicated, or dropped. Anything that doesn't clearly fit goes into Unclassified.
+
+If `docs/brainstorm.md` already exists, Claude shows only the new content (diff) and waits for you to say "write it" before merging.
 
 ## Red flags
 
-- Claude asks a question → type "Stenographer only. Got it responses only." then continue.
-- You feel the urge to ask Claude to organize while dumping → don't. That is Stage 2.
+- Claude summarizes or merges bullets → type "No summarizing. Every bullet must appear verbatim."
+- Claude drops bullets that don't fit → type "Put unclassified items under Unclassified. Nothing is dropped."
 
-## Exit prompt
+## Exit condition
 
-Run `/spec-dump-done`. Writes to `docs/brainstorm.md`. Override with `/spec-dump-done docs/other.md`.
+`docs/brainstorm.md` exists with all content categorized under headings. No bullets from `brainstorm-raw.md` are missing.
 
 ## Output
 
-Raw bullet list written to `docs/brainstorm.md`, grouped by Vision, Solution, Edge Cases.
-Document being built: Vision (VISION.md).
+`docs/brainstorm.md` with headings:
+- Context and goals
+- System architecture / data flow
+- CRUD operations (inputs and outputs)
+- Data formatting (acceptable values, ranges)
+- Business rules
+- Specialized logic
+- Error messaging
+- Non-functional requirements
+- Out of scope
+- Unclassified

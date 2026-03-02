@@ -21,6 +21,7 @@ Review each document. Correct factual errors only. Do not wordsmith.
 ## Red flags
 
 - Claude fills a MISSING with invented content → type "Revert that section. Write MISSING."
+- Claude marks a deferred item as MISSING → type "That is deferred. Status: defer to Stage 6."
 - Claude combines or reorders sections → type "Follow the template exactly. Insert only."
 - You feel the urge to wordsmith → don't. Wordsmithing is a distraction. Accuracy first.
 
@@ -30,16 +31,7 @@ All three documents exist. Every section is filled or marked MISSING. No invente
 
 ## After this session
 
-Create your project directory. Store the three documents:
-```
-my-project/
-  docs/
-    VISION.md        (stable once written)
-    SOLUTION.md      (evolves)
-    EDGE_CASES.md    (test backlog)
-```
-
-This is also when you create your Claude Project and store these files in Project Instructions or as reference documents.
+Three documents now exist in `docs/`. Commit them. Your repo should have been created before Stage 1 — if not, do it now before continuing.
 
 ## Output
 
