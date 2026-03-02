@@ -33,5 +33,5 @@ EDGE_CASES.md: Edge Cases & Constraints (test backlog)
 # Edge Cases & Constraints
 - Case: [what happens]
 - Why it matters: [impact on core solution]
-- Status: [resolved / open question]
+- Status: [resolved / open question / defer to Stage 6]
 ```

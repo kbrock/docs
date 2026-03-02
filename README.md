@@ -16,12 +16,29 @@ Bounce the idea off a friend first. If you can't explain the logline out loud, y
 
 If no friend is available, use Stage 0B: run `/spec-dump-interactive`. Exit with `/spec-dump-done`.
 
+> `/spec-dump-interactive`: I want to brainstorm an idea. Ask me one question at a time. Do not summarize, do not organize, do not encourage. Just ask the next most useful question. If I go off-topic or add detail beyond what the current question needs, acknowledge it with "noted" and bring me back with the next question. Do not follow tangents.
+>
+> `/spec-dump-done`: Bullet list everything we just discovered. No prose. No encouragement. Write output to docs/brainstorm.md.
+
 ### Stage 1 — Brain Dump (new session inside Spec Writing project)
 
-Run `/spec-dump`. Exit with `/spec-dump-done` (writes to `docs/brainstorm.md`).
+Run `/spec-dump`. Exit with `/spec-dump-done` (appends raw verbatim bullets to `docs/brainstorm-raw.md`).
+Can be run multiple times — each run appends under a `--- [append] ---` separator. Nothing is lost.
 Capture only. One session.
-Output: raw bullet list written to `docs/brainstorm.md`.
-Document being built: Vision (Document 1).
+
+> `/spec-dump`: You are a technical scribe. Acknowledge each message with only "got it." Do not ask questions, do not organize, do not summarize.
+>
+> `/spec-dump-done`: Bullet list everything we just discovered. No prose. No encouragement. No deduplication. No summarizing — preserve every detail verbatim. Appends to docs/brainstorm-raw.md.
+
+### Stage 1.5 — Sort (new session)
+
+Run `/spec-dump-sort` after one or more brain dumps. Categorizes `brainstorm-raw.md` into `brainstorm.md` under the checklist headings. No content is lost — everything lands somewhere, even if only in Unclassified.
+
+Run again any time you add more raw content. If `brainstorm.md` already exists, shows a diff of new content and waits for confirmation before merging.
+
+Pass a different file as argument to sort content from another source: `/spec-dump-sort docs/notes.md`
+
+> `/spec-dump-sort`: Reads docs/brainstorm-raw.md (or $ARGUMENTS). Categorizes into: Context and goals, System architecture/data flow, CRUD operations, Data formatting, Business rules, Specialized logic, Error messaging, Non-functional requirements, Out of scope, Unclassified. No summarizing, no deduplication. If brainstorm.md exists, shows diff and waits for confirmation before writing.
 
 ### Stage 2 — Gap Audit
 
@@ -29,9 +46,12 @@ Run `/spec-gap` (reads `docs/brainstorm.md`; pass a path to override).
 Claude lists MISSING items grouped by section.
 You answer in one pass. No back and forth.
 Skipped answers become MISSING in the documents.
+Deferred answers (internal to a component not yet defined) become `Status: defer to Stage 6` in EDGE_CASES.md — not MISSING in SOLUTION.md.
 MISSING items are resolved one at a time in Stage 4 — not here.
 After answers, gap writes updated content back to `docs/brainstorm.md` automatically.
 Still building: Document 1.
+
+> `/spec-gap`: You are a technical scribe. Read docs/brainstorm.md (or $ARGUMENTS if provided). List only the questions you need answered to fill the three documents below. Group by: Vision, Solution, Edge Cases. Do not write the documents yet. Do not ask follow-up questions. Wait for my answers. After I have answered all questions, write updated content back to docs/brainstorm.md (or $ARGUMENTS if provided).
 
 ### Stage 3 — Write the Docs
 
@@ -39,6 +59,8 @@ Run `/spec-write` (reads `docs/brainstorm.md`; pass a path to override).
 Claude fills the three templates and writes them directly.
 MISSING stays MISSING — do not let Claude guess.
 Output: `docs/VISION.md`, `docs/SOLUTION.md`, `docs/EDGE_CASES.md`.
+
+> `/spec-write`: You are a technical scribe. Read docs/brainstorm.md (or $ARGUMENTS if provided). Write the three documents using only what is provided. MISSING stays MISSING — do not guess, infer, or fill gaps. No encouragement, no commentary, no prose outside the documents. Write output to docs/VISION.md, docs/SOLUTION.md, docs/EDGE_CASES.md.
 
 #### VISION.md: Vision (stable — should not change after this session)
 ```
@@ -73,8 +95,35 @@ One sentence. What it does.
 # Edge Cases & Constraints
 - Case: [what happens]
 - Why it matters: [impact on core solution]
-- Status: [resolved / open question]
+- Status: [resolved / open question / defer to Stage 6]
 ```
+
+### Stage 3.5 — Audit (new session, Opus)
+
+Run `/spec-audit` after Stage 3, and again any time documents change significantly.
+Checks consistency across all three documents and verifies completeness against a standard checklist.
+Do not fix anything in this session — route each problem to Stage 4 or Stage 5.
+
+> `/spec-audit`: You are a technical reviewer. Read docs/VISION.md, docs/SOLUTION.md, docs/EDGE_CASES.md. Check for:
+> - Logical contradictions between sections or documents
+> - Gaps in the user flow (missing steps, unhandled states)
+> - Actors mentioned but not defined, or defined but never used
+> - Anything in SOLUTION.md that contradicts VISION.md
+> - Anything in the code that contradicts or is absent from the spec
+> - Sections that are vague enough to be misunderstood
+>
+> Also verify that the three documents together cover each of the following. Flag any that are absent or too vague to be actionable:
+> - Context and goals (plain English, no jargon)
+> - System architecture or data flow (diagram or equivalent description)
+> - CRUD operations: what inputs come in, what outputs go out
+> - Data formatting: acceptable values, expected ranges
+> - Business rules: given inputs, what outputs are expected
+> - Specialized logic
+> - Error messaging
+> - Non-functional requirements: response times, capacity, uptime, resiliency, versioning, environment details
+> - What is explicitly out of scope
+>
+> Output only a list of problems to screen. No fixes, no suggestions, no encouragement. Label each by document and section. No prose.
 
 ### Stage 4 — Fill the MISSINGs
 
@@ -82,11 +131,15 @@ Run `/spec-fill`. Interactive loop — reads all three docs, finds each MISSING,
 Say "skip" or "out of scope" to bypass. Loops until no MISSINGs remain.
 Note: "out of scope" is a valid final status for a MISSING — not everything needs to be resolved.
 
+> `/spec-fill`: You are a technical scribe. Read docs/VISION.md, docs/SOLUTION.md, docs/EDGE_CASES.md. Find the first MISSING marker across all three documents. Ask me the questions needed to fill it. Do not infer beyond what I say. Do not rewrite or touch anything outside that section. When I have answered, write the resolved content in-place to the file. Then find the next MISSING and repeat. If I say "skip" or "out of scope", mark it accordingly and move to the next MISSING. When no MISSINGs remain, say so.
+
 ### Stage 5 — Solution Evolves (Document 2 only)
 
 Run `/spec-define` (optionally pass a section name). Interactive — reads `docs/SOLUTION.md`, one update per session, writes back when agreed.
 As you learn more, Document 2 changes. Document 1 should not.
 Red flag: if you're editing the Logline or Problem/Solution, you changed your mind about what you're building — stop and talk to a friend again before writing code.
+
+> `/spec-define`: You are a technical scribe. Read docs/SOLUTION.md. If $ARGUMENTS is provided, focus on that section. I have one update. Insert only. Do not rewrite surrounding content. Do not touch VISION.md. When we have agreed on the update, write it to docs/SOLUTION.md.
 
 If VISION.md needs editing during Stage 5, stop. Return to Stage 0.
 Stage 5 updates route new MISSINGs to Stage 4, not back to Stage 2.

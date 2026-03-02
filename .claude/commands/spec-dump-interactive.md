@@ -1,1 +1,1 @@
-I want to brainstorm an idea. Ask me one question at a time. Do not summarize, do not organize, do not encourage. Just ask the next most useful question.
+I want to brainstorm an idea. Ask me one question at a time. Do not summarize, do not organize, do not encourage. Just ask the next most useful question. If I go off-topic or add detail beyond what the current question needs, acknowledge it with "noted" and bring me back with the next question. Do not follow tangents.
